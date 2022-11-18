@@ -27,6 +27,7 @@ class Year {
    public void setYear(int year) {
       this.year = year;
       this.setIsLeapYear(year);
+      this.setFirstDayOfYear(year);
    }
 
 
@@ -41,14 +42,20 @@ class Year {
    }
 
    public void setNumLeapYears(int year1, int year2) {
+      this.year1 = year1;
+      this.year2 = year2;
       this.setNumberOfLeapYears(year1, year2);
    }
 
    public void setDayWeek(int day, int month, int year) {
+      this.day = day;
+      this.month = month;
+      this.year = year; 
       this.setDayOfWeek(day, month, year);
    }
 
    public void setFirstDayYear(int year) {
+      this.year = year;
       this.setFirstDayOfYear(year);
    }
 
