@@ -94,4 +94,25 @@ public class Person {
         return -1;
     }
 
+    public String personNameToString(){
+        return ( "{ \"name\": "  +this.name + " }" );
+     }	
+
+    public String personEmailToString(){
+        return ( "{ \"name\": "  +this.name+  ", " + "\"dayOfYear\": "  +this.email+ " }"  );
+     }	
+
+    public String toString() { 
+        return personNameToString(); 
+     }
+
+    //Tester Method for Person POJO
+    public static void main(String[] args) {
+        Person testPerson = new Person();
+        System.out.println("email: " + testPerson.email);
+        System.out.println("email: " + testPerson.name);
+        System.out.println("email: " + testPerson.password);
+    }
+
+
 }
