@@ -79,7 +79,7 @@ public class Person {
     
 
     // Constructor used when building object from an API
-    public Person(String email, String password, String name, Date dob) {
+    public Person(String email, String password, String name , Date dob ) {
         this.email = email;
         this.password = password;
         this.name = name;
@@ -108,10 +108,20 @@ public class Person {
 
     //Tester Method for Person POJO
     public static void main(String[] args) {
-        Person testPerson = new Person();
-        System.out.println("email: " + testPerson.email);
-        System.out.println("email: " + testPerson.name);
-        System.out.println("email: " + testPerson.password);
+        Person testPersonNotBob = new Person();
+        System.out.println(testPersonNotBob);
+        System.out.println("zero argument get email: " + testPersonNotBob.getEmail());
+        LocalDate birthday = LocalDate.of(1995, 1, 1);
+        Date date = Date.from(birthday.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Person testPerson = new Person("bob@gmail.com", "hammer10!", "Bob the Builder", date);
+        System.out.println("email: " + testPerson.getEmail());
+        System.out.println("name: " + testPerson.getName());
+        System.out.println("password: " + testPerson.getPassword());
+        testPerson.setPassword("theNewBlob");
+        //testPerson.setDob(2022-11-10);
+        System.out.println("new password: " + testPerson.getPassword());
+        System.out.println("date of birth: " + testPerson.getDob());
+        System.out.println("age: " + testPerson.getAge());
     }
 
 
