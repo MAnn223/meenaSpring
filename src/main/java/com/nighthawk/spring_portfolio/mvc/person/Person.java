@@ -72,8 +72,9 @@ public class Person {
     @Column(nullable = true)
     private Double weight=0.0;
 
-    @Column(nullable = true)
-    private Integer goalSteps =0;
+    @NonNull
+    private Integer totalSteps = 0; 
+
     //private double weight;
     //private int goalSteps;
     
@@ -92,13 +93,14 @@ public class Person {
     
 
     // Constructor used when building object from an API
-    public Person(String email, String password, String name , Date dob , int height , double weight, int goalSteps) {
+    public Person(String email, String password, String name , Date dob , int height , double weight, int goalSteps, int totalSteps) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.dob = dob;
         this.height = height;
         this.weight = weight;
+        this.totalSteps = 0;
     }
 
     
@@ -120,6 +122,13 @@ public class Person {
         return 13500;
     }
 
+    public int addSteps(int steps)
+    {
+        this.totalSteps = 0;
+        this.totalSteps += steps;
+        return this.totalSteps;
+    }
+
 
     public String personNameToString(){
         return ( "{ \"name\": "  +this.name + " }" );
@@ -128,10 +137,17 @@ public class Person {
     public String personAttributesToString(){
         return ( "{ \"name\": "  +this.name+  ", " + "\"email\": "  +this.email+ ", " + "\"password\": "  +this.password+ ", " + "\"dob\": "  +this.dob+ ", " + "\"age\": "  +this.getAge()+", " + "\"height\": "  +this.height+", " + "\"weight\": "  +this.weight+ "\"goalSteps\": "  +this.getGoalSteps()+" }"  );
      }
+    
+    public String personStepsToString(int finalTotalSteps){
+        return ( "{ \"name\": "  +this.name +  ", " + "\"totalSteps\": "  +finalTotalSteps + " }" );
+    }
 
     // public String toString() { 
     //     return personNameToString(); 
     //  }
+
+   
+    
 
     //Tester Method for Person POJO
     public static void main(String[] args) {
@@ -142,7 +158,7 @@ public class Person {
         LocalDate locBirthday = LocalDate.of(2011, 1, 1);
         Date birthday = Date.from(locBirthday.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        Person testPerson = new Person("bob@gmail.com", "hammer10!", "Bob the Builder", birthday, 65, 150.2, 10000);
+        Person testPerson = new Person("bob@gmail.com", "hammer10!", "Bob the Builder", birthday, 65, 150.2, 10000, 0);
         System.out.println("email: " + testPerson.getEmail());
         System.out.println("name: " + testPerson.getName());
         System.out.println("password: " + testPerson.getPassword());

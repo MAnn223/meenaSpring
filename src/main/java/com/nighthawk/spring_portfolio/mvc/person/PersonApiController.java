@@ -43,6 +43,20 @@ public class PersonApiController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);       
     }
 
+    @GetMapping("/addSteps/{id}/{totalSteps}")
+    public String addStepsToPerson(@PathVariable long id, @PathVariable int totalSteps) {
+        Optional<Person> optional = repository.findById(id);
+        if (optional.isPresent()) {  // Good ID
+            Person person = optional.get(); // value from findByID
+            int addStepsTotalSteps = person.addSteps(totalSteps);
+            return person.personStepsToString(addStepsTotalSteps);
+            
+        }
+        // Bad ID
+        //return new ResponseEntity<>(HttpStatus.BAD_REQUEST);       
+        return "Bad ID";
+    }
+
     /*
     DELETE individual Person using ID
      */
@@ -68,7 +82,8 @@ public class PersonApiController {
                                              @RequestParam("dob") String dobString,
                                              @RequestParam("height") int height,
                                              @RequestParam("weight") double weight,
-                                             @RequestParam("goalSteps") int goalSteps) {
+                                             @RequestParam("goalSteps") int goalSteps,
+                                             @RequestParam("goalSteps") int totalSteps) {
         Date dob;
         try {
             dob = new SimpleDateFormat("MM-dd-yyyy").parse(dobString);
@@ -76,7 +91,7 @@ public class PersonApiController {
             return new ResponseEntity<>(dobString +" error; try MM-dd-yyyy", HttpStatus.BAD_REQUEST);
         }
         // A person object WITHOUT ID will create a new record with default roles as student
-        Person person = new Person(email, password, name, dob , height , weight, goalSteps);
+        Person person = new Person(email, password, name, dob , height , weight, goalSteps, totalSteps);
         repository.save(person);
         return new ResponseEntity<>(email +" is created successfully", HttpStatus.CREATED);
     }
