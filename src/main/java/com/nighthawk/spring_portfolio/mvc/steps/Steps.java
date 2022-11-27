@@ -171,7 +171,7 @@ public class Steps {
      }
 
      public String averageCaloriesToString(){ 
-        return ( "{ \"name\": "  +person.getName()+  ", " + "\"averageCalories\": "   + this.averageCaloriesToString() + " }" );
+        return ( "{ \"name\": "  +person.getName()+  ", " + "\"averageCalories\": "   + this.averageCalories() + " }" );
      }
    
    
