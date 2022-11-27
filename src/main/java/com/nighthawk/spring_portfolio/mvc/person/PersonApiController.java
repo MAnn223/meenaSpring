@@ -132,6 +132,13 @@ public class PersonApiController {
 
             // Set Date and Attributes to SQL HashMap
             Map<String, Map<String, Object>> date_map = new HashMap<>();
+
+            //bug fix, https://www.w3schools.com/java/java_hashmap.asp
+            // keySet gives all the keys in a Set, loop through HashMap and add all the existing dates and data to date_map
+            for (String i: person.getStats().keySet()) {
+                date_map.put(i, person.getStats().get(i));
+            }
+           
             date_map.put( (String) stat_map.get("date"), attributeMap );
             person.setStats(date_map);  // BUG, needs to be customized to replace if existing or append if new
             repository.save(person);  // conclude by writing the stats updates
