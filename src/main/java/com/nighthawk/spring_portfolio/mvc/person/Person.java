@@ -152,12 +152,14 @@ public class Person {
     //Tester Method for Person POJO
     public static void main(String[] args) {
         Person testPersonNotBob = new Person();
+        System.out.println("\nTesting zero argument...");
         System.out.println(testPersonNotBob);
         System.out.println("zero argument get email: " + testPersonNotBob.getEmail());
 
         LocalDate locBirthday = LocalDate.of(2011, 1, 1);
         Date birthday = Date.from(locBirthday.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
+        System.out.println("\nTesting all argument...");
         Person testPerson = new Person("bob@gmail.com", "hammer10!", "Bob the Builder", birthday, 65, 150.2, 10000, 0);
         System.out.println("email: " + testPerson.getEmail());
         System.out.println("name: " + testPerson.getName());

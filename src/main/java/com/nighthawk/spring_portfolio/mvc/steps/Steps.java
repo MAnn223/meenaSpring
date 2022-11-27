@@ -61,6 +61,9 @@ public class Steps {
 
     @Column(nullable = true)
     private int totalMood = 0; 
+
+    @Column(nullable = true)
+    private int totalCalories = 0; 
     
    
     
@@ -95,10 +98,31 @@ public class Steps {
             return (double) totalSteps / activeDaysNumber;
             }
         }
+
+        public double averageCalories()
+        {   
+            
+            int dailyCalories;
+            
+            for (String i: person.getStats().keySet()) {
+                dailyCalories = (int) person.getStats().get(i).get("calories");
+                totalCalories += dailyCalories;
+            }
+            int calDaysNumber = person.getStats().keySet().size();
+            if (calDaysNumber == 0)
+            {
+            return 0.0;
+            }
+            else
+            {
+            return (double) totalCalories / calDaysNumber;
+            }
+        }
+
     public String activeCheck() {
         double avgSteps = this.averageSteps();
         String message;
-        if (avgSteps < (double) person.getGoalSteps()) {
+        if (avgSteps >= (double) person.getGoalSteps()) {
             message = ". Good job! You met your goal steps on average";
             return message;
         }
@@ -118,14 +142,14 @@ public class Steps {
                 dailyMood = (int) person.getStats().get(i).get("mood");
                 totalMood += dailyMood;
             }
-            int moodDaysNumber = person.getStats().keySet().size();
-            if (moodDaysNumber == 0)
+            int calDaysNumber = person.getStats().keySet().size();
+            if (calDaysNumber == 0)
             {
             return 0.0;
             }
             else
             {
-            return (double) totalMood / moodDaysNumber;
+            return (double) totalMood / calDaysNumber;
             }
         }
     
@@ -144,6 +168,10 @@ public class Steps {
 
      public String activeCheckToString(){ 
         return ( person.getName()+  ", " + "your average steps is " + this.averageSteps() + " and your goal was " + (double) person.getGoalSteps() + this.activeCheck());
+     }
+
+     public String averageCaloriesToString(){ 
+        return ( "{ \"name\": "  +person.getName()+  ", " + "\"averageCalories\": "   + this.averageCaloriesToString() + " }" );
      }
    
    

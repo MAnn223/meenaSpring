@@ -53,6 +53,20 @@ public class StepsApiController {
         //return -1;
     }
 
+    @GetMapping("/averageCalories/{id}")
+    public ResponseEntity<String> averageCalories(@PathVariable long id) {
+        Optional<Person> optional = repository.findById(id);
+        if (optional.isPresent()) {  // Good ID
+            Person person = optional.get(); // value from findByID
+            Steps steps = new Steps(person);
+            return new ResponseEntity<>(steps.averageCaloriesToString(), HttpStatus.OK);
+            
+        }
+        // Bad ID
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);       
+        //return -1;
+    }
+
     @GetMapping("/averageMood/{id}")
     public ResponseEntity<String> averageMood(@PathVariable long id) {
         Optional<Person> optional = repository.findById(id);
