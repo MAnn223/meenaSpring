@@ -43,6 +43,7 @@ public class Calculator {
         SEPARATORS.put("(", 0);
         SEPARATORS.put(")", 0);
     }
+  
 
     // Create a 1 argument constructor expecting a mathematical expression
     public Calculator(String expression) {
@@ -51,13 +52,48 @@ public class Calculator {
 
         // parse expression into terms
         this.termTokenizer();
+        
 
         // place terms into reverse polish notation
-        this.tokensToReversePolishNotation();
+        if (isBalanced()) {
+            this.tokensToReversePolishNotation();
+            this.rpnToResult();
 
+         
+        }
         // calculate reverse polish notation
-        this.rpnToResult();
+        // else {
+            
+        //         System.out.println("Error - unbalanced parenthesis");
+            
+        // }
     }
+
+        //from CB frq3
+  private boolean isBalanced() 
+  {
+      int openPar = 0;
+      int closePar = 0;
+  for (String str : this.tokens)
+  {
+      if (str.equals("("))
+      {
+          openPar+=1;
+      }
+      if (str.equals(")"))
+      {
+          closePar+=1;
+      }
+    }
+  if (openPar == closePar)
+      {
+      return true;
+      }
+  else
+      {
+      return false;
+      }
+      }
 
     // Test if token is an operator
     private boolean isOperator(String token) {
@@ -71,6 +107,8 @@ public class Calculator {
         return SEPARATORS.containsKey(token);
     }
 
+  
+    
     // Compare precedence of operators.
     private Boolean isPrecedent(String token1, String token2) {
         // token 1 is precedent if it is greater than token 2
@@ -114,6 +152,7 @@ public class Calculator {
     // Takes tokens and converts to Reverse Polish Notation (RPN), this is one where the operator follows its operands.
     private void tokensToReversePolishNotation () {
         // contains final list of tokens in RPN
+        
         this.reverse_polish = new ArrayList<>();
 
         // stack is used to reorder for appropriate grouping and precedence
@@ -167,7 +206,7 @@ public class Calculator {
     {
         // stack is used to hold operands and each calculation
         Stack<Double> calcStack = new Stack<Double>();
-
+        
         // RPN is processed, ultimately calcStack has final result
         for (String token : this.reverse_polish)
         {
@@ -218,10 +257,16 @@ public class Calculator {
 
     // Print the expression, terms, and result
     public String toString() {
-        return ("Original expression: " + this.expression + "\n" +
+        if(isBalanced()) {
+            return ("Original expression: " + this.expression + "\n" +
                 "Tokenized expression: " + this.tokens.toString() + "\n" +
                 "Reverse Polish Notation: " +this.reverse_polish.toString() + "\n" +
                 "Final result: " + String.format("%.2f", this.result));
+        }
+        else {
+            return "Error - unbalanced parenthesis";
+        
+        }
     }
 
     // Tester method
@@ -255,6 +300,9 @@ public class Calculator {
 
         Calculator divisionMath = new Calculator("300/200");
         System.out.println("Division Math\n" + divisionMath);
+
+        Calculator isBalancedCheck = new Calculator("(500 + 200)) * 2");
+        System.out.println("isBalancedCheck\n" + isBalancedCheck);
 
     }
 }
