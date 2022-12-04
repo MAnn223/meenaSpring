@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+
 /* In mathematics,
     an expression or mathematical expression is a finite combination of symbols that is well-formed
     according to rules that depend on the context.
@@ -25,11 +26,13 @@ public class Calculator {
     private final Map<String, Integer> OPERATORS = new HashMap<>();
     {
         // Map<"token", precedence>
+        OPERATORS.put("^", 2);
         OPERATORS.put("*", 3);
         OPERATORS.put("/", 3);
         OPERATORS.put("%", 3);
         OPERATORS.put("+", 4);
         OPERATORS.put("-", 4);
+        
     }
 
     // Helper definition for supported operators
@@ -133,6 +136,7 @@ public class Calculator {
                 case "*":
                 case "/":
                 case "%":
+                case "^":
                     // While stack
                     // not empty AND stack top element
                     // and is an operator
@@ -171,10 +175,33 @@ public class Calculator {
             if (isOperator(token))
             {
                 // Pop the two top entries
-                calcStack.pop();
+                //double entryZero = calcStack.pop();
+                double entryTwo = calcStack.pop();
+                double entryOne = calcStack.pop();
 
-                // Calculate intermediate results
-                result = 0.0;
+                if (token.equals("+")){
+                    result = entryOne + entryTwo;
+                }
+
+                if (token.equals("-")){
+                    result = entryOne - entryTwo;
+                }
+
+                if (token.equals("*")){
+                    result = entryOne * entryTwo;
+                }
+
+                if (token.equals("/")){
+                    result = entryOne / entryTwo;
+                }
+
+                if (token.equals("%")){
+                    result = entryOne % entryTwo;
+                }
+
+                if (token.equals("^")){
+                    result = Math.pow(entryOne, entryTwo);
+                }
 
                 // Push intermediate result back onto the stack
                 calcStack.push( result );
@@ -200,6 +227,12 @@ public class Calculator {
     // Tester method
     public static void main(String[] args) {
         // Random set of test cases
+        
+        Calculator powerMath = new Calculator("100 + 200  ^ 3");
+        System.out.println("Power of Math\n" + powerMath);
+
+        System.out.println();
+
         Calculator simpleMath = new Calculator("100 + 200  * 3");
         System.out.println("Simple Math\n" + simpleMath);
 
