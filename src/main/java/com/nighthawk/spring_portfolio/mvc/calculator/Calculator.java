@@ -261,7 +261,7 @@ public class Calculator {
             return ("Original expression: " + this.expression + "\n" +
                 "Tokenized expression: " + this.tokens.toString() + "\n" +
                 "Reverse Polish Notation: " +this.reverse_polish.toString() + "\n" +
-                "Final result: " + String.format("%.2f", this.result));
+                "Final result: " + String.format("%.2f", this.result) + "\n");
         }
         else {
             return "Error - unbalanced parenthesis";
