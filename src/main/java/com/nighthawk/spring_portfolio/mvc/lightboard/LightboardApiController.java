@@ -27,6 +27,15 @@ public class LightboardApiController {
       return ResponseEntity.ok("All lights turned on: " + "\n" + finalToString);  
     }
 
+    @GetMapping("/turnAllLightsOff/{rows}/{cols}")
+    public ResponseEntity<String> turnAllLightsOff(@PathVariable int rows, @PathVariable int cols) {
+      
+      LightBoard lightBoard = new LightBoard(rows, cols);
+      lightBoard.turnAllLightsOff();
+      String finalToString = lightBoard.toString();
+      return ResponseEntity.ok("All lights turned off: " + "\n" + finalToString);  
+    }
+
     @GetMapping("/turnLightsOn/{rows}/{cols}/{row1}/{col1}")
     public ResponseEntity<String> turnLightOn(@PathVariable int rows, @PathVariable int cols, @PathVariable int row1, @PathVariable int col1) {
       

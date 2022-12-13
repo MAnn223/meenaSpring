@@ -45,6 +45,7 @@ public class Light {
     public Light() {
         int maxColor = 255;
         int effect = 9;
+        this.on = on;
         this.red = (short) (Math.random()*(maxColor+1));
         this.green = (short) (Math.random()*(maxColor+1));
         this.blue = (short) (Math.random()*(maxColor+1));
@@ -69,7 +70,8 @@ public class Light {
             "\"red\": " + red + "," +
             "\"green\": " +  green + "," + 
             "\"blue\": " + blue + "," +
-            "\"effect\": " + "\"" + EFFECT.get(effect) + "\"" +
+            "\"effect\": " + "\"" + EFFECT.get(effect) + "\"" + "," +
+            "\"lightStatus\": " + on +
             "}" );
     }
 
